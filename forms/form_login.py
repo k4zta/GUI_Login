@@ -1,36 +1,39 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter.font import BOLD
+from PIL import Image,ImageTk,ImageSequence
+from PIL.ImageTk import PhotoImage
+from pycparser.c_ast import Label
 import util.generic as utl
 from forms.form_master import MasterPanel
+import pyttsx3
+from tkinter import *
 
 class App:
-    
-    
     def verificar(self):
         usu = self.usuario.get()
         password = self.password.get()        
-        if(usu == "Casta" and password == "Juancho") :
+        if(usu == "c" or usu=="C" and password == "1") :
             self.ventana.destroy()
             MasterPanel()
         else:
             messagebox.showerror(message="La contraseña no es correcta",title="Mensaje")           
                       
-    def __init__(self):        
+    def __init__(self):
         self.ventana = tk.Tk()                             
         self.ventana.title('Inicio de sesion')
         self.ventana.geometry('800x500')
         self.ventana.config(bg='#fcfcfc')
         self.ventana.resizable(width=0, height=0)    
         utl.centrar_ventana(self.ventana,800,500)
-        
-        logo =utl.leer_imagen("./imagenes/logo.png", (200, 200))
-        # frame_logo
-        frame_logo = tk.Frame(self.ventana, bd=0, width=500, relief=tk.SOLID, padx=10, pady=10,bg='#3a7ff6')
-        frame_logo.pack(side="left",expand=tk.YES,fill=tk.BOTH)
-        label = tk.Label( frame_logo, image=logo,bg='#3a7ff6' )
-        label.place(x=0,y=0,relwidth=1, relheight=1)
-        
+        self.ventana.iconbitmap("./imagenes/rocketico.ico")
+
+        logo = utl.leer_imagen("./imagenes/logo.png", (200, 200))
+        frame_logo = tk.Frame(self.ventana, bd=0, width=500, relief=tk.SOLID, padx=10, pady=10, bg='#3a7ff6')
+        frame_logo.pack(side="left", expand=tk.YES, fill=tk.BOTH)
+        label = Label(frame_logo, image=logo, bg='#3a7ff6')
+        label.place(x=0, y=0, relwidth=1, relheight=1)
+
         #frame_form
         frame_form = tk.Frame(self.ventana, bd=0, relief=tk.SOLID, bg='#fcfcfc')
         frame_form.pack(side="right",expand=tk.YES,fill=tk.BOTH)
@@ -63,6 +66,7 @@ class App:
         inicio.bind("<Return>", (lambda event: self.verificar()))
         #end frame_form_fill
         self.ventana.mainloop()
-        
+
+
 if __name__ == "__main__":
    App()
